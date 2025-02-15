@@ -14,9 +14,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
-
+import frc.robot.constants.OIConstants;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
+import frc.robot.utils.InputAxis;
 
 public class RobotContainer {
     private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
@@ -31,9 +32,21 @@ public class RobotContainer {
 
     private final Telemetry logger = new Telemetry(MaxSpeed);
 
-    private final CommandXboxController joystick = new CommandXboxController(0);
+    private final CommandXboxController joystick = new CommandXboxController(OIConstants.JoyDriverID);
 
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
+    final InputAxis m_fieldX = new InputAxis("Forward", joystick::getLeftY)
+        .withDeadband(OIConstants.kMinDeadband)
+        .withInvert(true)
+        .withSquaring(true);
+    final InputAxis m_fieldY = new InputAxis("Strafe", joystick::getLeftX)
+        .withDeadband(OIConstants.kMinDeadband)
+        .withInvert(true)
+        .withSquaring(true);
+    final InputAxis m_rotate = new InputAxis("Rotate", joystick::getRightX)
+        .withDeadband(OIConstants.kMinDeadband)
+        .withInvert(true);
+
 
     public RobotContainer() {
         configureBindings();
@@ -45,9 +58,9 @@ public class RobotContainer {
         drivetrain.setDefaultCommand(
             // Drivetrain will execute this command periodically
             drivetrain.applyRequest(() ->
-                drive.withVelocityX(-joystick.getLeftY() * MaxSpeed) // Drive forward with negative Y (forward)
-                    .withVelocityY(-joystick.getLeftX() * MaxSpeed) // Drive left with negative X (left)
-                    .withRotationalRate(-joystick.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
+                drive.withVelocityX(m_fieldX.getAsDouble() * MaxSpeed) // Drive forward with negative Y (forward)
+                    .withVelocityY(m_fieldY.getAsDouble() * MaxSpeed) // Drive left with negative X (left)
+                    .withRotationalRate(m_rotate.getAsDouble() * MaxAngularRate) // Drive counterclockwise with negative X (left)
             )
         );
 
