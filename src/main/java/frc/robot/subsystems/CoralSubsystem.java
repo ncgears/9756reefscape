@@ -1,8 +1,8 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.com.spark.SparkMax;
-import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -46,7 +46,7 @@ public class CoralSubsystem<SparkMax> extends SubsystemBase {
   public void init() {
     // set initial stuff, etc.
     // NCDebug.Debug.debug("Template: Initialized");
-    m_motor.setInverted(false);
+    //m_motor.setInverted(false);
   }
   
   @Override
@@ -54,10 +54,10 @@ public class CoralSubsystem<SparkMax> extends SubsystemBase {
   }
 
   public void runMotor() {
-    m_motor.set(0.25);
+    //m_motor.set(0.25);
   }
   public void stopMotor() {
-    m_motor.set(0);
+    //m_motor.set(0);
   }
 
 }
