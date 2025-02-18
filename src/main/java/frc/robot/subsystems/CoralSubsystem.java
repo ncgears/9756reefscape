@@ -9,8 +9,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 /**
  * This subsystem handles managing the Template.
  * It is responsible for doing some stuff.
+ * @param <SparkMax>
  */
-public class CoralSubsystem extends SubsystemBase {
+public class CoralSubsystem<SparkMax> extends SubsystemBase {
 	private static CoralSubsystem instance;
   private SparkMax m_motor = new SparkMax(1, MotorType.kBrushed);
   //private and public variables defined here
