@@ -1,8 +1,12 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkBase.ResetMode;
+import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -11,9 +15,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
  * It is responsible for doing some stuff.
  * @param <SparkMax>
  */
-public class CoralSubsystem<SparkMax> extends SubsystemBase {
+public class CoralSubsystem extends SubsystemBase {
 	private static CoralSubsystem instance;
-  private SparkMax m_motor = new SparkMax(1, MotorType.kBrushed);
+  private SparkMax m_motor; 
+  // new SparkMax(1, com.revrobotics.spark.SparkLowLevel.MotorType.kBrushed);
+  
   //private and public variables defined here
 
   /**
@@ -45,7 +51,14 @@ public class CoralSubsystem<SparkMax> extends SubsystemBase {
    */
   public void init() {
     // set initial stuff, etc.
-    // NCDebug.Debug.debug("Template: Initialized");
+    SparkMaxConfig defaultConfig = new SparkMaxConfig();
+    defaultConfig
+      .smartCurrentLimit(50)
+      .idleMode(IdleMode.kBrake)
+      .inverted(false);
+
+      m_motor = new SparkMax(1, MotorType.kBrushed);
+      m_motor.configure(defaultConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     //m_motor.setInverted(false);
   }
   
@@ -54,10 +67,10 @@ public class CoralSubsystem<SparkMax> extends SubsystemBase {
   }
 
   public void runMotor() {
-    //m_motor.set(0.25);
+    m_motor.set(0.25);
   }
   public void stopMotor() {
-    //m_motor.set(0);
+    m_motor.set(0);
   }
 
 }
