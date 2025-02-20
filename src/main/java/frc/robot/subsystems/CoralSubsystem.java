@@ -39,13 +39,6 @@ public class CoralSubsystem extends SubsystemBase {
     init();
   }
 
-  // @Override
-  // public void initSendable(SendableBuilder builder) {
-  //   super.initSendable(builder);
-  //   builder.setActuator(false); //true if this subsystem can move something on the robot
-  //   builder.addStringProperty("String Value", null, null);
-  // }
-  
   /**
    * The init method resets and operational state of the subsystem
    */
