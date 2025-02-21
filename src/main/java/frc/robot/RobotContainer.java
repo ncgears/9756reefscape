@@ -22,7 +22,7 @@ import frc.robot.subsystems.CoralSubsystem;
 import frc.robot.utils.InputAxis;
 
 public class RobotContainer {
-    public CoralSubsystem coral = new CoralSubsystem().getInstance();
+    public CoralSubsystem coral = CoralSubsystem.getInstance();
     private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
     private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
 
